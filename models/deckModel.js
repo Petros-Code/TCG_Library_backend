@@ -1,0 +1,18 @@
+import mongoose from "mongoose";
+
+//#region DECK SCHEMA
+const deckSchema = new mongoose.Schema({
+  name: { type: String },
+  type: { type: String },
+  commander: { type: String },
+  card_number: { type: Number },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  cards: [{ type: mongoose.Schema.Types.ObjectId, ref: "Card" }],
+});
+
+const Deck = mongoose.model("Deck", deckSchema);
+//#endregion
+
+//#region EXPORTS
+export { Deck };
+//#endregion
