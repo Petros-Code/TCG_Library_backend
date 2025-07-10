@@ -8,6 +8,10 @@ const userSchema = new mongoose.Schema(
     email: { type: String, unique: true },
     decks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Deck" }],
     library: { type: mongoose.Schema.Types.ObjectId, ref: "Library" },
+    wishlist: {
+  type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Wishlist" }],
+  default: [],
+},
   },
   { timestamps: true }
 );
