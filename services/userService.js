@@ -32,13 +32,31 @@ const createUser = async (userData) => {
 
 //#region PATCH
 const updateUser = async (id, userData) => {
-  return await User.findByIdAndUpdate(id, userData, { new: true });
+  try {
+    const updatedUser = await User.findByIdAndUpdate(id, userData, {
+      new: true,
+      runValidators: true,
+    });
+
+    return updatedUser;
+  } catch (error) {
+    throw new Error(`Update failed: ${error.message}`);
+  }
 };
+
 //#endregion
 
 //#region DELETE
 const deleteUser = async (id) => {
-  return await User.findByIdAndDelete(id);
+  try {
+    const deletedUser = await User.findByIdAndDelete(id);
+    if (!deletedUser) {
+      throw new Error("User not found");
+    }
+    return deletedUser;
+  } catch (error) {
+    throw new Error(`Failed to delete user: ${error.message}`);
+  }
 };
 //#endregion
 export {

@@ -8,8 +8,8 @@ import {
 
 const wishlistRoute = express.Router();
 
-wishlistRoute.get("/", getWishlistByUserIdController);
+wishlistRoute.get("/:id", getWishlistByUserIdController);
 
-wishlistRoute.patch("/", patchWishlistController);
+wishlistRoute.patch("/:id", patchWishlistController);
 
 export default wishlistRoute;

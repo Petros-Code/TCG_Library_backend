@@ -79,9 +79,14 @@ if (!name || !age || !email) {
 //#region PATCH
 const updateUserController = async (req, res) => {
   try {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(400).json({ error: "Invalid user ID." });
+    }
+
     const user = await updateUser(req.params.id, req.body);
     if (!user) return res.status(404).json({ error: "User not found." });
-    res.json({ message: "User updated with success." });
+
+    res.json({ message: "User updated with success.", user });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
@@ -93,13 +98,13 @@ const deleteUserController = async (req, res) => {
   try {
     const user = await deleteUser(req.params.id);
     if (!user)
-      return res.status(404).json({ error: "Utilisateur non trouvé " });
-    res.json({ message: "Utilisateur supprimé" });
+      return res.status(404).json({ error: "User not found " });
+    res.json({ message: "User deleted with success", user });
   } catch (err) {
     if (err.name == "CastError" && err.kind == "ObjectId") {
-      res.status(400).json({ error: "Le UserId doit comporter 24 caractères" });
+      res.status(400).json({ error: "User ID must contain 24 characters" });
     } else {
-      res.status(500).json({ error: "Une erreur est survenue !" });
+      res.status(500).json({ error: "Error encountered !" });
     }
   }
 };
