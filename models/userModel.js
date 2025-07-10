@@ -9,9 +9,9 @@ const userSchema = new mongoose.Schema(
     decks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Deck" }],
     library: { type: mongoose.Schema.Types.ObjectId, ref: "Library" },
     wishlist: {
-  type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Wishlist" }],
-  default: [],
-},
+      type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Wishlist" }],
+      default: [],
+    },
   },
   { timestamps: true }
 );

@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import userRoute from "./routes/userRoute.js";
 import cardRoute from "./routes/cardRoute.js";
+import wishlistRoute from "./routes/wishlist.route.js";
 import { connectDB } from "./config/config.js";
 
 dotenv.config();
@@ -13,7 +14,7 @@ connectDB();
 
 app.use("/users", userRoute);
 app.use("/cards", cardRoute);
-
+app.use("/wishlist", wishlistRoute);
 
 app.listen(port, () => {
   console.log(`Le Serveur tourne sur http://localhost:${port}`);
