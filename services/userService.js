@@ -24,8 +24,9 @@ const getUserWithDecksAndLibrary = (userId) => {
 
 //#region  POST
 const createUser = async (userData) => {
-  const newUser = new User(userData);
-  return await newUser.save();
+  const user = new User(userData);
+  const savedUser = await user.save();
+  return savedUser;
 };
 //#endregion
 

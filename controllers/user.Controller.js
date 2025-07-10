@@ -52,12 +52,26 @@ const getUserFull = async (req, res) => {
 //#endregion
 
 //#region POST
-const createUserController = async (req, res) => {
+const createUserController = async (req, res) => { 
+  const { name, age, email } = req.body;
+if (!name || !age || !email) {
+  return res.status(400).json({ error: "Champs requis : name, age, email" });
+}
+
   try {
-    const user = await createUser(req.body);
-    res.status(201).json(user);
+    const newUser = await createUser({ name, age, email });
+    res.status(201).json(newUser);
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    if (err.code === 11000) {
+      return res.status(409).json({ error: "Email déjà utilisé" });
+    }
+
+    if (err instanceof mongoose.Error.ValidationError) {
+      return res.status(400).json({ error: err.message });
+    }
+
+    console.error("Erreur lors de la création de l'utilisateur :", err);
+    res.status(500).json({ error: "Erreur serveur lors de la création" });
   }
 };
 //#endregion
