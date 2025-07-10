@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import {
   getAllUsers,
   createUser,
@@ -14,8 +15,22 @@ const getAllUsersController = async (req, res) => {
 };
 
 const getUserByIdController = async (req, res) => {
-  const user = await getUserById();
-  res.json(user);
+  const userId = req.params.id;
+
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    return res.status(400).json({ error: "ID utilisateur invalide" });
+  }
+  try {
+    const user = await getUserById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: "Utilisateur non trouvé" });
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    console.error("Erreur dans getUserByIdController :", error);
+    res.status(500).json({ error: "Erreur Serveur" });
+  }
 };
 
 const getUserFull = async (req, res) => {
@@ -37,12 +52,26 @@ const getUserFull = async (req, res) => {
 //#endregion
 
 //#region POST
-const createUserController = async (req, res) => {
+const createUserController = async (req, res) => { 
+  const { name, age, email } = req.body;
+if (!name || !age || !email) {
+  return res.status(400).json({ error: "Champs requis : name, age, email" });
+}
+
   try {
-    const user = await createUser(req.body);
-    res.status(201).json(user);
+    const newUser = await createUser({ name, age, email });
+    res.status(201).json(newUser);
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    if (err.code === 11000) {
+      return res.status(409).json({ error: "Email déjà utilisé" });
+    }
+
+    if (err instanceof mongoose.Error.ValidationError) {
+      return res.status(400).json({ error: err.message });
+    }
+
+    console.error("Erreur lors de la création de l'utilisateur :", err);
+    res.status(500).json({ error: "Erreur serveur lors de la création" });
   }
 };
 //#endregion

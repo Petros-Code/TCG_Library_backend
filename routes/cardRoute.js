@@ -1,5 +1,5 @@
 import express from "express";
-import { createCardController } from "../controllers/cardController.js";
+import { createCardController } from "../controllers/card.Controller.js";
 
 const router = express();
 

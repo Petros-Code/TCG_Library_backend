@@ -1,15 +1,11 @@
 import { User } from "../models/userModel.js";
-import { Deck } from "../models/deckModel.js";
-import { Card } from "../models/cardModel.js";
-import { Library } from "../models/libraryModel.js";
-
 //#region GET
 const getAllUsers = async () => {
   return await User.find();
 };
 
 const getUserById = async (id) => {
-  return await User.find(id);
+  return await User.findById(id);
 };
 
 const getUserWithDecksAndLibrary = (userId) => {
@@ -28,8 +24,9 @@ const getUserWithDecksAndLibrary = (userId) => {
 
 //#region  POST
 const createUser = async (userData) => {
-  const newUser = new User(userData);
-  return await newUser.save();
+  const user = new User(userData);
+  const savedUser = await user.save();
+  return savedUser;
 };
 //#endregion
 
