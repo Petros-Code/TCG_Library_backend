@@ -1,8 +1,4 @@
 import { User } from "../models/userModel.js";
-import { Deck } from "../models/deckModel.js";
-import { Card } from "../models/cardModel.js";
-import { Library } from "../models/libraryModel.js";
-
 //#region GET
 const getAllUsers = async () => {
   return await User.find();

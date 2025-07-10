@@ -8,7 +8,7 @@ const deckSchema = new mongoose.Schema({
   card_number: { type: Number },
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   cards: [{ type: mongoose.Schema.Types.ObjectId, ref: "Card" }],
-});
+}, { timestamps: true });
 
 const Deck = mongoose.model("Deck", deckSchema);
 //#endregion
