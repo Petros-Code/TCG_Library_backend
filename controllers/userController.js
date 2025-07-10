@@ -4,6 +4,7 @@ import {
   deleteUser,
   updateUser,
   getUserById,
+  getUserWithDecksAndLibrary,
 } from "../services/userService.js";
 
 //#region  GET
@@ -16,6 +17,23 @@ const getUserByIdController = async (req, res) => {
   const user = await getUserById();
   res.json(user);
 };
+
+const getUserFull = async (req, res) => {
+  const userId = req.params.id;
+
+  try {
+    const user = await getUserWithDecksAndLibrary(userId);
+    if (!user) {
+      return res.status(404).json({ error: "Utilisateur non trouvé" });
+    }
+
+    res.json(user);
+  } catch (error) {
+    console.error("🔥 Erreur getUserFull:", error);
+    res.status(500).json({ error: "Erreur serveur" });
+  }
+};
+
 //#endregion
 
 //#region POST
@@ -63,4 +81,5 @@ export {
   deleteUserController,
   updateUserController,
   getUserByIdController,
+  getUserFull,
 };
