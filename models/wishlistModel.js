@@ -4,9 +4,10 @@ import mongoose from "mongoose";
 
 // "Champs : cards, totalMoneyValue, user"
 const wishlistSchema = new mongoose.Schema({
-  totalMoneyValue: { type: mongoose.Schema.Types.Decimal128, default: 0 }, // Le Type: Decimal128 est pour les Float (ex: Decimal128 => 12.3232), il stock d'une façon similar à ObjectId
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   cards: [{ type: mongoose.Schema.Types.ObjectId, ref: "Card" }],
+  commentaire: { type: String },
+  totalMoneyValue: { type: mongoose.Schema.Types.Decimal128, default: 0 }, // Le Type: Decimal128 est pour les Float (ex: Decimal128 => 12.3232), il stock d'une façon similar à ObjectId
 });
 
 const Wishlist = mongoose.model("Wishlist", wishlistSchema);
