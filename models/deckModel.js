@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 //#region DECK SCHEMA
 const deckSchema = new mongoose.Schema({
   name: { type: String },
-  type: { type: String },
+  format: { type: String },
   commander: { type: String },
   card_number: { type: Number },
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },

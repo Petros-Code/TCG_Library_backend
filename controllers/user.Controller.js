@@ -6,7 +6,7 @@ import {
   updateUser,
   getUserById,
   getUserWithDecksAndLibrary,
-} from "../services/userService.js";
+} from "../services/user.Service.js";
 
 //#region  GET
 const getAllUsersController = async (req, res) => {

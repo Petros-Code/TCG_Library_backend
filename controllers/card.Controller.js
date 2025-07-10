@@ -1,4 +1,4 @@
-import { createCard } from "../services/cardService.js";
+import { createCard } from "../services/card.Service.js";
 
 //#region POST
 const createCardController = async (req, res) => {

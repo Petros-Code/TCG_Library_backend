@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
-import userRoute from "./routes/userRoute.js";
-import cardRoute from "./routes/cardRoute.js";
+import userRoute from "./routes/user.Route.js";
+import cardRoute from "./routes/card.Route.js";
 import { connectDB } from "./config/config.js";
 
 dotenv.config();

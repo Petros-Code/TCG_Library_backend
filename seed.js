@@ -90,7 +90,7 @@ const seed = async () => {
     const decks = await Deck.insertMany([
       {
         name: "Eldrazi",
-        type: "Commander",
+        format: "Commander",
         commander: randomCardName(),
         card_number: 15,
         user: users[0]._id,
@@ -98,7 +98,7 @@ const seed = async () => {
       },
       {
         name: "Markov",
-        type: "Commander",
+        format: "Commander",
         commander: randomCardName(),
         card_number: 15,
         user: users[1]._id,
@@ -106,7 +106,7 @@ const seed = async () => {
       },
       {
         name: "Zombies",
-        type: "Commander",
+        format: "Commander",
         commander: randomCardName(),
         card_number: 15,
         user: users[1]._id,
@@ -114,7 +114,7 @@ const seed = async () => {
       },
       {
         name: "Giga-Dino",
-        type: "Commander",
+        format: "Commander",
         commander: randomCardName(),
         card_number: 15,
         user: users[2]._id,
