@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import {
   getAllUsers,
   createUser,
@@ -14,8 +15,22 @@ const getAllUsersController = async (req, res) => {
 };
 
 const getUserByIdController = async (req, res) => {
-  const user = await getUserById();
-  res.json(user);
+  const userId = req.params.id;
+
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    return res.status(400).json({ error: "ID utilisateur invalide" });
+  }
+  try {
+    const user = await getUserById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: "Utilisateur non trouvé" });
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    console.error("Erreur dans getUserByIdController :", error);
+    res.status(500).json({ error: "Erreur Serveur" });
+  }
 };
 
 const getUserFull = async (req, res) => {

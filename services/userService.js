@@ -5,7 +5,7 @@ const getAllUsers = async () => {
 };
 
 const getUserById = async (id) => {
-  return await User.find(id);
+  return await User.findById(id);
 };
 
 const getUserWithDecksAndLibrary = (userId) => {
