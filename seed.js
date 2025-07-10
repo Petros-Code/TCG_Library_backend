@@ -135,6 +135,11 @@ const seed = async () => {
     users[2].library = libraries[2]._id;
     await users[2].save();
 
+    const charlie = users[0];
+    const wishlistCards = cards.slice(0, 5).map ((c) => c._id);
+    charlie.wishlist = wishlistCards;
+    await charlie.save();
+
     console.log("✅ Seed terminé avec succès !");
   } catch (err) {
     console.error("❌ Erreur lors du seed :", err);
