@@ -6,7 +6,7 @@ import {
   updateUser,
   getUserById,
   getUserWithDecksAndLibrary,
-} from "../services/userService.js";
+} from "../services/user.Service.js";
 
 //#region  GET
 const getAllUsersController = async (req, res) => {
@@ -52,11 +52,11 @@ const getUserFull = async (req, res) => {
 //#endregion
 
 //#region POST
-const createUserController = async (req, res) => { 
+const createUserController = async (req, res) => {
   const { name, age, email } = req.body;
-if (!name || !age || !email) {
-  return res.status(400).json({ error: "Champs requis : name, age, email" });
-}
+  if (!name || !age || !email) {
+    return res.status(400).json({ error: "Champs requis : name, age, email" });
+  }
 
   try {
     const newUser = await createUser({ name, age, email });
@@ -82,6 +82,7 @@ const updateUserController = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
       return res.status(400).json({ error: "Invalid user ID." });
     }
+    //ajouter : if user exist
 
     const user = await updateUser(req.params.id, req.body);
     if (!user) return res.status(404).json({ error: "User not found." });
@@ -97,8 +98,7 @@ const updateUserController = async (req, res) => {
 const deleteUserController = async (req, res) => {
   try {
     const user = await deleteUser(req.params.id);
-    if (!user)
-      return res.status(404).json({ error: "User not found " });
+    if (!user) return res.status(404).json({ error: "User not found " });
     res.json({ message: "User deleted with success", user });
   } catch (err) {
     if (err.name == "CastError" && err.kind == "ObjectId") {
@@ -109,6 +109,7 @@ const deleteUserController = async (req, res) => {
   }
 };
 //#endregion
+
 export {
   getAllUsersController,
   createUserController,

@@ -6,7 +6,7 @@ import {
   updateUserController,
   getUserByIdController,
   getUserFull,
-} from "../controllers/user.Controller.js";
+} from "../controllers/user.controller.js";
 
 const router = express.Router();
 
